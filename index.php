@@ -1,8 +1,36 @@
+<?php
+session_start();
+include('include/connection.php');
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM admin WHERE username = ? and password = ?";
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $username, $password);
+    $query->execute();
+    $result = $query->get_result();
+
+    if ($result->num_rows == 1) {
+        $_SESSION['admin'] = true;
+        header('Location: home.php');
+        exit;
+    } else {
+        echo "Invalid credentials";
+    }
+
+    $con->close();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Simple Blog App</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="include/bootstrap5/css/bootstrap.min.css">
 
@@ -10,36 +38,13 @@
 
 <body>
 
-    <?php @include('include/header.php') ?>
-
-    <div class="post-container">
-        <h2>Latest Posts</h2>
-
-        <?php
-
-        include('connection.php');
-
-        if ($con->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-
-        $sql = "SELECT * FROM posts";
-        $result = $con->query($sql);
-
-        if ($result->num_rows > 0) {
-
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="post">';
-                echo '<h3>' . $row["title"] . '</h3>';
-                echo '<p>' . $row["content"] . '</p>';
-                echo '</div>';
-            }
-        } else {
-            echo "0 results";
-        }
-        $con->close();
-        ?>
+    <div class="login-panel">
+        <h2 class="admin">Admin Login</h2>
+        <form class="admin" method="post" enctype="multipart/form-data">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="submit" name="submit" value="Login">
+        </form>
     </div>
 
 </body>

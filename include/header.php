@@ -2,7 +2,7 @@
 
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link active" aria-current="page" href="home.php">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="add_post.php">Add Post</a>

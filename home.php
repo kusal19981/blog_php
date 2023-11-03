@@ -2,20 +2,18 @@
 <html>
 
 <head>
+    <title>Simple Blog App</title>
     <link rel="stylesheet" href="style.css">
-    <title>View Posts</title>
-
-
-
+    <link rel="stylesheet" href="include/bootstrap5/css/bootstrap.min.css">
 
 </head>
 
 <body>
+
     <?php @include('include/header.php') ?>
-    <link rel="stylesheet" href="include/bootstrap5/css/bootstrap.min.css">
 
     <div class="post-container">
-        <h2>View Posts</h2>
+        <h2>Latest Posts</h2>
 
         <?php
 
@@ -38,7 +36,7 @@
                 echo '</div>';
             }
         } else {
-            echo "No more Blog To Show";
+            echo "0 results";
         }
         $con->close();
         ?>
